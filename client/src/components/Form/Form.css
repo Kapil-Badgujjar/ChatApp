@@ -1,0 +1,59 @@
+.login-signup-updatePassword-form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    height: 550px;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.login-signup-updatePassword-form>img{
+    width: 500px;
+    height: 500px;
+}
+.login-signup-updatePassword-form>.form{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    width: 400px;
+}
+.login-signup-updatePassword-form>.form>.error-message{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgb(255, 0, 0);
+    height: 1rem;
+}
+.login-signup-updatePassword-form>.form>.Form-name{
+    font-size: 1.2rem;
+    color: rgb(0, 87, 141);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+}
+
+@media  screen and (max-width: 940px) {
+    .login-signup-updatePassword-form>img{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .login-signup-updatePassword-form>img{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .login-signup-updatePassword-form>.form{
+        width: 260px;
+    }
+}

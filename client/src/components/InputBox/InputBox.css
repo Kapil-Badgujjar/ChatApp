@@ -1,0 +1,29 @@
+.InputBox{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 0px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.InputBox>span{
+    font-weight: 600;
+    color: rgb(0, 102, 157);
+}
+.InputBox>input{
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgba(0, 87, 141, 0.3);
+}
+
+/* @media  screen and (min-width: 740px) {
+    .InputBox{
+        gap: 3px;
+        padding: 5px 0px;
+    }
+    .InputBox>input{
+        font-size: 0.7rem;
+        font-weight: 400;
+    }
+} */

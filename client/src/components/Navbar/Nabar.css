@@ -1,0 +1,40 @@
+.Navbar-container{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    background-color: rgb(255, 255, 255);
+    height: 8vh;
+    padding:5px 20px;
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.Navbar-container-left-side{
+    display: flex;
+    align-items: center;
+    color:rgb(0, 65, 161);
+    font-weight: 800;
+}
+.Navbar-container-left-side>div{
+    cursor:pointer;
+}
+.Navbar-container-left-side>img{
+    cursor: pointer;
+    width: 10%;
+}
+.Navbar-container-right-side{
+    display: flex; 
+    gap: 1.5rem; 
+    align-items: center; 
+}
+.Navbar-container-right-side>img{
+    width: 30px;
+}
+.Navbar-container-right-side>a{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}

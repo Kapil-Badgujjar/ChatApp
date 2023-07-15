@@ -1,0 +1,9 @@
+.Gender-radio-button{
+    display: flex;
+    gap: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom: 2px solid rgba(0, 87, 141, 0.3);
+}

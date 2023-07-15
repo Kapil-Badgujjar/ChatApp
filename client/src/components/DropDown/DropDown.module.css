@@ -1,0 +1,50 @@
+.DropDown{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0px;
+    height: 300px;
+    width: calc(100% - 10px);
+    margin: 0px 5px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    transform: translate(0,calc(100% + 4px));
+    z-index: 1;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.DropDown::-webkit-scrollbar{
+    display: none;
+}
+.Dropdownlist {
+    list-style: none;
+}
+.Dropdownlist>li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.friendDetails{
+
+    color :white;
+}
+.Dropdownlist>li>div>h3{
+    color: rgb(39, 39, 39);
+}
+.Dropdownlist>li>div>p{
+    color: gray;
+}
+.addFriend{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    width: fit-content;
+    padding: 5px;
+    color: gray;
+    border: 1px solid gray;
+}

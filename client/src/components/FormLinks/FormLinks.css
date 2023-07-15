@@ -1,0 +1,23 @@
+.formLinks{
+    display: flex;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.formLinks>span{
+    color: gray;
+}
+.formLinks>a{
+    text-decoration: none;
+    color: rgb(0, 87, 141);
+}
+
+@media screen and (max-width:425px){
+    .formLinks{
+        flex-direction: column;
+        font-size: 0.8rem;
+        font-weight: 300;
+    }
+}
