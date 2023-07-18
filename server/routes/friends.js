@@ -12,6 +12,7 @@ router.route('/friends-list').get(async (req,res) => {
     }
 });
 
+
 router.route('/search-friends').post(async (req, res) => {
     const list = await friends_service.searchFriends(req.session.user_id, req.body.text);
     if(list.length > 0) {

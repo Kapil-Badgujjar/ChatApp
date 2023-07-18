@@ -9,7 +9,11 @@ import DropDown from '../components/DropDown/DropDown'
 export default function Chats() {
   const socket = useRef;
   const navigate = useNavigate();
+  const [searchActive, setSearchActive] = useState(false);
+  const [isGroups, setIsGroups] = useState(false);
   const [friends, setFrineds] = useState([]);
+  const [createGroupForm, setCreateGroupForm] = useState(false);
+  const [groupName, setGroupName] = useState('');
   const [chats, setChats] = useState([]);
   const [chatWith, setChatWith] = useState(undefined);
   const [messageText, setMessageText] = useState('');
@@ -36,7 +40,11 @@ export default function Chats() {
   async function getFriendsList(){
     try{
       const response = await axios.get('http://localhost:4800/friends/friends-list',{withCredentials: true});
-      setFrineds(response.data);
+      if(response.status === 200 ){
+        setFrineds(response.data);
+      } else {
+        setFrineds([]);
+      }
     } catch (error) {
       try{
         let errormessage = JSON.parse(error.response.request.response);
@@ -44,6 +52,39 @@ export default function Chats() {
       } catch (error) {
         console.log(error.message);
       }
+      setFrineds([]);
+    }
+  }
+
+  async function getGroupsList(){
+    try{
+      const response = await axios.get('http://localhost:4800/group/groups-list',{withCredentials: true});
+      if(response.status === 200){
+        console.log(response.data);
+        setFrineds(response.data);
+      }else{
+        setFrineds([]);
+      }
+    } catch (error) {
+      try{
+        let errormessage = JSON.parse(error.response.request.response);
+        console.log(errormessage.message)
+      } catch (error) {
+        console.log(error.message);
+      }
+      setFrineds([]);
+    }
+  }
+
+  async function addGroup(){
+    try{
+      const response = await axios.post('http://localhost:4800/group/add-group',{text: text},{withCredentials: true});
+      if(response.status == 200){
+        setSearchFriendsList(response.data);
+      }
+    }
+    catch (error) {
+
     }
   }
   async function openChat(friend){
@@ -91,22 +132,28 @@ export default function Chats() {
     .then((response)=>{ 
       setUserName(response.data.name);
       setUserID(response.data.id);
-        getFriendsList();
+      isGroups ? getGroupsList() :getFriendsList();
     }).catch((error)=>{
        console.error(error.message); 
        navigate('/login');
       });
-  },[]);
+  },[isGroups]);
 
   return (
     <div className="chats-container">
       <div className="chats-container-left">
-        <div className="chats-container-left-header">
-        <input type="text" placeholder="Search" value={searchText} onChange={(e)=>{setSearchText(e.target.value); searchFriends(e.target.value)}}/>
+        { !isGroups && searchActive && <div className="chats-container-left-header">
+          <input type="text" placeholder="Search" value={searchText} onChange={(e)=>{setSearchText(e.target.value); searchFriends(e.target.value)}}/>
           {/* <Button value="=>" action={()=>{}} /> */}
           { searchFriendsList.length >0 && <DropDown data={searchFriendsList} /> }
+        </div>}
+        <div className="chats-container-left-options">
+          {!isGroups && <span className={isGroups ? '': 'fillclass'} onClick={()=>{setIsGroups(true)}}>Chats</span> }
+          {!isGroups && <span className={searchActive ? 'fillclass':''} onClick={()=>{setSearchActive(!searchActive)}}>Find Friend</span> }
+          {isGroups && <span className={isGroups ? 'fillclass': ''} onClick={()=>{setIsGroups(false)}}>Groups</span> }
+          {isGroups && <span onClick={()=>{setCreateGroupForm(!createGroupForm)}}>Create New Group</span> }
         </div>
-            {friends.map((friend)=>{
+            {!isGroups && friends.map((friend)=>{
               return (
               <div key={friend.chat_id+'L'} className="friend-row" onClick={()=>{openChat(friend)}}>
                 <div className="friendName">
@@ -121,7 +168,28 @@ export default function Chats() {
                 <span className='time'>08:43 AM</span> */}
               </div>
               )
-        })}
+            })}
+            {isGroups && !createGroupForm && friends.map((friend)=>{
+              return (
+              <div key={friend.chat_id+'L'} className="friend-row" onClick={()=>{openChat(friend)}}>
+                <div className="friendName">
+                  {friend.group_name}
+                </div>
+                {/* <div className="email_id">
+                  {friend.email_id}
+                </div> */}
+                {/* <div className='last-message'>
+                  Text
+                </div>
+                <span className='time'>08:43 AM</span> */}
+              </div>
+              )
+            })}
+            {isGroups && createGroupForm && <div className='NewgroupForm'>
+              <input type='text' value={groupName} placeholder='Enter Group name' onChange={(e)=>{setGroupName(e.target.value)}} />
+              <Button value="Next" onClick={()=>{addGroup}} />
+              </div>
+            }
       </div>
       <div className="chats-container-right">
         { chatWith && <div className="chats-container-right-header">{chatWith.user_name}</div> }

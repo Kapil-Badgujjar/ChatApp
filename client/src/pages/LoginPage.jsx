@@ -32,7 +32,7 @@ export default function LoginPage() {
       }
     }
     catch (error){
-      setMessage(error.message);
+      setMessage(error.response.data);
       setTimeout(function(){ setMessage('') },2000);
     }
   }
@@ -46,6 +46,7 @@ export default function LoginPage() {
           [
             <InputBox name='email_id' type="email" placeholder='Email id' value="" isRequired={true} />,
             <InputBox name='password' type="password" placeholder='Password' value="" isRequired={true} />,
+            <FormLinks label="Forgot password?" linkName="Reset Passowrd" to='/forgotpassword'/>,
             <FormLinks label="Don't have an account?" linkName="Register Now" to='/signup'/>,
           ]
         }

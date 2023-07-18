@@ -26,7 +26,7 @@ export default function SignupPage() {
       }
 
     } catch(error) {
-      setMessage(error.message);
+      setMessage(error.response.data);
       setTimeout(function(){ setMessage(''); }, 2000);
     }
   }
@@ -39,12 +39,12 @@ export default function SignupPage() {
         formReference={formReference}
         childComponents={
           [
-          <InputBox name='username' type="text" placeholder='Username' value="" isRequired={true} />,
+          <InputBox name='name' type="text" placeholder='Name' value="" isRequired={true} />,
           <InputBox name='email_id' type="text" placeholder='Email id' value="" isRequired={true} />,
           <InputBox name='phone' type="number" placeholder='Phone Number' value="" isRequired={true} />,
           <InputBox name='dob' type="date" value="" isRequired={true} />,
           <InputBox name='password' type="password" placeholder='Password' value="" isRequired={true} />,
-          <InputBox name='confirm-password' type="text" placeholder='Confirm Password' value="" isRequired={true} />,
+          <InputBox name='confirmPassword' type="text" placeholder='Confirm Password' value="" isRequired={true} />,
           <RadioButtons label="Gender " options={[{name: 'gender', label: 'Male'},{name: 'gender', label: 'Female'}]} />,
           <FormLinks label="Already have an account!" linkName="Login" to='/login'/>
           ]

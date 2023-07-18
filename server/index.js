@@ -9,6 +9,7 @@ import cors from 'cors';
 import User from './routes/user.js'
 import Friends from './routes/friends.js'
 import Chats from './routes/chats.js'
+import Groups from './routes/groups.js'
 
 //creating app with express
 const app = express();
@@ -71,6 +72,7 @@ app.use(session(
 app.use('/user',User);
 app.use('/friends',Friends);
 app.use('/chats',Chats);
+app.use('/groups',Groups);
 
 //end-point to check if the session exists or not
 app.get('/check-session', (req, res) => {

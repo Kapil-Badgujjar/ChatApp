@@ -4,6 +4,8 @@ import Navbar from './components/Navbar/Navbar'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import Chats from './pages/Chats'
 import SearchFriends from './pages/SearchFriends'
 import SettingsPage from './pages/SettingsPage'
@@ -26,6 +28,14 @@ function App() {
         {
           path: 'signup',
           element: <SignupPage />
+        },
+        {
+          path: 'forgotpassword',
+          element: <ForgotPasswordPage />
+        },
+        {
+          path: 'reset-password/:token',
+          element: <ResetPasswordPage />
         },
         {
           path: 'chats',

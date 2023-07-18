@@ -38,3 +38,71 @@
     font-weight: 600;
     color: rgb(0, 102, 157);
 }
+.userProfileBackBtn{
+    cursor: pointer;
+    margin: 20px 30px;
+    margin-left: auto;
+    width: fit-content;
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 6px 10px;
+    color: gray;
+    border: 2px solid gray;
+}
+.userProfile{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    margin:20px auto;
+    padding: 20px 0px;
+    height: calc(92vh - 40px);
+    max-width: 1200px;
+    background-color: white;
+    overflow: scroll;
+}
+.userProfile::-webkit-scrollbar{
+    display: none;
+}
+.userProfileHeader{
+    padding: 0px 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.userProfileHeaderLeft > h1 {
+    font-size: 4rem;
+}
+.userProfileHeaderLeft > h3 {
+    font-size: 2rem;
+    color: gray;
+}
+.userProfileHeaderLeft > p{
+    font-size: 1.2rem;
+    color: lightgray;
+}
+.userProfileMain{
+    padding: 50px;
+}
+.userProfileMain > form{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.userProfileMain > form >div {
+    display: flex;
+    justify-content: space-between;
+}
+.userProfileMain > form >div > label{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.userProfileMain > form >div > input {
+    font-size: 1.3rem;
+    padding: 10px;
+    width: 50%;
+}
+.userProfileFooter > div {
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
