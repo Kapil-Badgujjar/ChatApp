@@ -106,3 +106,56 @@
     flex-direction: column;
     gap: 10px;
 }
+.group-setting-page{
+    box-sizing: border-box;
+    height: calc(92vh - 40px);
+    margin: 20px auto;
+    padding: 50px;
+    max-width: 1200px;
+    background-color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.backlink{
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: blue;
+    padding: 20px 0px;
+    text-align: right;
+}
+.group-details{
+    display: flex;
+    font-size: 1.3rem;
+}
+.group-details > input{
+    padding: 10px;
+}
+.group-friend-search{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.group-friend-search > input{
+    padding: 10px;
+    font-size: 1.3rem;
+}
+.searchFriendRow{
+    overflow: scroll;
+    height: 60vh;
+}
+.searchFriendRow > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+    padding: 10px;
+    background-color: gainsboro;
+}
+
+.searchFriendRow > div > div{
+    width: 60%;
+}
+
+.searchFriendRow > div > Button{
+    width: fit-content;
+    margin-left: auto;
+}

@@ -45,7 +45,10 @@ async function getFriends(user_id){
 async function searchFriends(user_id, search_text) {
     const client = await pool.connect();
     try {
-        const query = `SELECT user_id , user_name, email_id FROM public.users WHERE user_name LIKE $2 AND user_id <> $1 AND user_id NOT IN (SELECT participent_2 FROM public.friends WHERE participent_1=$1 UNION SELECT participent_1 FROM public.friends WHERE participent_2=$1)`;
+        // const query = `SELECT user_id , user_name, email_id FROM public.users WHERE user_name LIKE $2 AND user_id <> $1 AND user_id NOT IN (SELECT participent_2 FROM public.friends WHERE participent_1=$1 UNION SELECT participent_1 FROM public.friends WHERE participent_2=$1)`;
+        const query = `SELECT user_id, user_name, email_id FROM public.users WHERE user_name LIKE $2 AND user_id NOT IN
+                        (SELECT DISTINCT participent_id FROM public.participents WHERE chat_id IN
+                            (SELECT chat_id FROM public.participents WHERE participent_id = $1))`
         const values = [user_id, search_text + '%'];
         const result = await client.query(query, values);
         return result.rows;

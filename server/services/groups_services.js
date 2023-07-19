@@ -34,21 +34,24 @@ async function getGroups(user_id){
 
 async function addGroup(user_id, group_name){
     const client = await pool.connect();
+    const createdTime = new Date().toISOString()
     try {
         let chat_id = undefined;
         const token = crypto.randomBytes(10).toString('hex');
-        const text = `INSERT INTO public.friends(group_name,token) VALUES($1,$2)`;
-        const values = [group_name,token];
+        const text = `INSERT INTO public.friends(created_time,group_name,token) VALUES($1,$2,$3)`;
+        const values = [createdTime,group_name,token];
         await client.query(text,values);
         const text2 = `SELECT chat_id, group_name from public.friends WHERE token = $1`;
         const values2 = [token];
         const result = await client.query(text2,values2);
+        chat_id= result.rows[0].chat_id;
         const text3 = `INSERT INTO public.participents(chat_id, participent_id) values ($1, $2)`;
         const values3 = [chat_id, user_id];
         await client.query(text3, values3);
         return result.rows;
     } catch ( error ) {
         console.log( error );
+        return undefined;
     } finally {
         client.release();
     }
@@ -58,7 +61,30 @@ async function removeGroup(){
 
 }
 
-async function addFriendsToGroup(){
-
+async function searchFriends(chat_id, search_text) {
+    const client = await pool.connect();
+    try {
+        const query = `SELECT user_id , user_name, email_id FROM public.users WHERE user_name LIKE $2 AND user_id NOT IN (SELECT participent_id FROM public.participents WHERE chat_id = $1 )`;
+        const values = [chat_id, search_text + '%'];
+        const result = await client.query(query, values);
+        return result.rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    } finally {
+        client.release();
+    }
 }
-export default {getGroups, addGroup, addFriendsToGroup}
+
+async function addFriendsToGroup(chat_id, participent_id){
+    const client = await pool.connect();
+    try{
+        const text = `INSERT INTO public.participents(chat_id, participent_id) values ($1, $2)`;
+        const values = [chat_id, participent_id];
+        await client.query(text, values);
+    }
+    catch(error) {
+        console.log(error.message);
+    }
+}
+export default {getGroups, addGroup, searchFriends, addFriendsToGroup}

@@ -11,6 +11,7 @@ import SearchFriends from './pages/SearchFriends'
 import SettingsPage from './pages/SettingsPage'
 import { createBrowserRouter,RouterProvider,Route, Router, Outlet} from 'react-router-dom'
 import { AppContext } from './utils/context'
+import GroupSettinsPage from './pages/GroupSettinsPage'
 function App() {
   const routes = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ function App() {
         {
           path: 'search-freinds',
           element: <SearchFriends />
+        },
+        {
+          path: 'group-settings/:id',
+          element: <GroupSettinsPage />
         },
         {
           path: 'settings',

@@ -12,5 +12,23 @@ router.route('/groups-list').get(async (req,res) => {
 });
 
 router.route('/add-group').post(async (req,res) => {
-    console.log(req.body.groupname);
+    console.log(req.session.user_id,req.body.groupname);
+    try{
+        const result = await groups_service.addGroup(req.session.user_id,req.body.groupname);
+        res.status(200).send(result);
+    } catch(error){
+        console.log(error.message);
+        res.status(500).send('Server error');
+    }
 });
+
+router.route('/add-friend-to-group').post(async (req,res) => {
+    await groups_service.addFriendsToGroup(req.body.chat_id, req.body.participent_id);
+    res.status(200).send('added');
+});
+
+router.route('/search-friends').post(async (req, res) => {
+    const result = await groups_service.searchFriends(req.body.chat_id, req.body.text);
+    res.status(200).send(result);
+});
+export default router;

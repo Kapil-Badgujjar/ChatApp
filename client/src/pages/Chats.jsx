@@ -6,8 +6,9 @@ import Button from '../components/Button/Button'
 import { useNavigate } from 'react-router-dom'
 import Context from '../utils/context'
 import DropDown from '../components/DropDown/DropDown'
+
 export default function Chats() {
-  const socket = useRef;
+  const socket = useRef();
   const navigate = useNavigate();
   const [searchActive, setSearchActive] = useState(false);
   const [isGroups, setIsGroups] = useState(false);
@@ -58,7 +59,7 @@ export default function Chats() {
 
   async function getGroupsList(){
     try{
-      const response = await axios.get('http://localhost:4800/group/groups-list',{withCredentials: true});
+      const response = await axios.get('http://localhost:4800/groups/groups-list',{withCredentials: true});
       if(response.status === 200){
         console.log(response.data);
         setFrineds(response.data);
@@ -77,14 +78,15 @@ export default function Chats() {
   }
 
   async function addGroup(){
+    if(groupName.trim() === '') return;
     try{
-      const response = await axios.post('http://localhost:4800/group/add-group',{text: text},{withCredentials: true});
+      const response = await axios.post('http://localhost:4800/groups/add-group',{groupname: groupName},{withCredentials: true});
       if(response.status == 200){
-        setSearchFriendsList(response.data);
+        setCreateGroupForm(false);
       }
     }
     catch (error) {
-
+      console.log(error.message);
     }
   }
   async function openChat(friend){
@@ -171,28 +173,31 @@ export default function Chats() {
             })}
             {isGroups && !createGroupForm && friends.map((friend)=>{
               return (
-              <div key={friend.chat_id+'L'} className="friend-row" onClick={()=>{openChat(friend)}}>
-                <div className="friendName">
-                  {friend.group_name}
+              <div key={friend.chat_id+'L'} className="friend-row group-row" onClick={()=>{openChat(friend)}}>
+                <div>
+                  <div className="friendName">
+                    {friend.group_name}
+                  </div>
+                  {/* <div className="email_id">
+                    {friend.email_id}
+                  </div> */}
+                  {/* <div className='last-message'>
+                    Text
+                  </div>
+                  <span className='time'>08:43 AM</span> */}
                 </div>
-                {/* <div className="email_id">
-                  {friend.email_id}
-                </div> */}
-                {/* <div className='last-message'>
-                  Text
-                </div>
-                <span className='time'>08:43 AM</span> */}
+                  <div className='group-settings' onClick={()=>{navigate(`/group-settings/${friend.chat_id}`)}}>Add Friends</div>
               </div>
               )
             })}
             {isGroups && createGroupForm && <div className='NewgroupForm'>
               <input type='text' value={groupName} placeholder='Enter Group name' onChange={(e)=>{setGroupName(e.target.value)}} />
-              <Button value="Next" onClick={()=>{addGroup}} />
+              <Button value='Next' action={addGroup}/>
               </div>
             }
       </div>
       <div className="chats-container-right">
-        { chatWith && <div className="chats-container-right-header">{chatWith.user_name}</div> }
+        { chatWith && <div className="chats-container-right-header">{chatWith.user_name ? chatWith.user_name : chatWith.group_name}</div> }
         <div className="chat-box">
           {chats.map((message)=>{
             return message.sender_id != userID ? <div className="received-message">{message.message_text}</div>:<div className="sent-message">{message.message_text}</div>;

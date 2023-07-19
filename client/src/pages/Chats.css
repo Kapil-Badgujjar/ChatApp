@@ -90,6 +90,10 @@
     padding: 5px 0px;
     border: 1px solid blue;
 }
+.group-row{
+    display: flex;
+    justify-content: space-between;
+}
 .chats-container-right {
     flex: 3;
     display: flex;
