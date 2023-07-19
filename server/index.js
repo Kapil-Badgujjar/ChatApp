@@ -44,7 +44,8 @@ io.on('connection', (socket) => {
         console.log("message received",data); //to check if message is received or not
         const sendUserSocketId = onlineUsers.get(data.to);
         if(sendUserSocketId){
-            socket.to(sendUserSocketId).emit('message-received',{sender_id: data. from, message_text: data.message});
+            console.log(sendUserSocketId);
+            socket.to(sendUserSocketId).emit('message-received',{sender_id: data.from, message_text: data.message});
             console.log('message-received event emitted', data.message)
         }
     });

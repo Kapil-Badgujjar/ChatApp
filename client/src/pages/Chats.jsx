@@ -28,6 +28,8 @@ export default function Chats() {
     if(userID){
       socket.current.emit('add-user', userID);
       socket.current.on('message-received', (msg)=>{
+        // console.log('Hy messese is received');
+        // console.log(chats);
         setChats([...chats,{sender_id: msg.sender_id, message_text: msg.message_text}]);
       })
     }
@@ -100,6 +102,11 @@ export default function Chats() {
     }
   }
 
+  //TODO:
+  useEffect(()=>{
+    console.log(chats);
+  } ,[chats]);
+
   async function sendMessage(){
     console.log(userID);
     console.log(messageText);
@@ -110,7 +117,7 @@ export default function Chats() {
         setChats([...chats,{sender_id: userID, message_text: messageText}]);
         setMessageText('');
         console.log(socket.current,chatWith);
-        socket.current.emit('send-message',{ to: chatWith.user_id, from : userID, message: messageText});
+        socket.current.emit('send-message',{ to: chatWith.participent_id, from : userID, message: messageText});
       }
     } catch (error) {
       console.log(error.message);
